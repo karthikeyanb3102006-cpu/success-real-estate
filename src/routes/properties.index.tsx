@@ -1,11 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { List, MapPin, Search, SlidersHorizontal } from "lucide-react";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { z } from "zod";
 
 import { PropertyCard } from "@/components/PropertyCard";
 import { formatPrice, listings } from "@/data/properties";
+
+const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
 const searchSchema = z.object({
   q: fallback(z.string(), "").default(""),
