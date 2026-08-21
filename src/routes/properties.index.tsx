@@ -38,7 +38,7 @@ function PropertiesPage() {
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
 
-  const [query, setQuery] = useState(search.q);
+  const [query, setQuery] = useState(search["q"]);
   const [type, setType] = useState<string>("all");
   const [beds, setBeds] = useState(0);
   const [baths, setBaths] = useState(0);
@@ -46,7 +46,8 @@ function PropertiesPage() {
   const [advanced, setAdvanced] = useState(false);
   const [view, setView] = useState<"list" | "map">("list");
 
-  const deal = ["buy", "rent"].includes(search.deal) ? search.deal : "all";
+  const dealParam = search["deal"];
+  const deal = ["buy", "rent"].includes(dealParam) ? dealParam : "all";
 
   const results = listings.filter((l) => {
     const q = query.trim().toLowerCase();
