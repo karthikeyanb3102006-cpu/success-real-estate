@@ -1,11 +1,13 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Bath, BedDouble, CalendarDays, Check, Heart, MapPin, Ruler } from "lucide-react";
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { formatPrice, getListing } from "@/data/properties";
 import { useFavorites } from "@/lib/favorites";
 import { cn } from "@/lib/utils";
+
+const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
 export const Route = createFileRoute("/properties/$id")({
   loader: ({ params }) => {
