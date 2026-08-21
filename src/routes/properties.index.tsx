@@ -211,7 +211,7 @@ function MapView({ results }: { results: typeof listings }) {
         fallback={<div className="h-[26rem] w-full animate-pulse bg-surface" />}
       >
         <Suspense fallback={<div className="h-[26rem] w-full animate-pulse bg-surface" />}>
-          <PropertyMap listings={results} />
+          <PropertyMap listings={results} searchable />
         </Suspense>
       </ClientOnly>
       <p className="border-t border-border/70 bg-card px-5 py-3 text-xs text-muted-foreground">

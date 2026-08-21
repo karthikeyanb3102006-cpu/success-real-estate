@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { formatPrice, type Listing } from "@/data/properties";
 import { loadGoogleMaps, MAP_STYLE_LUXE } from "@/lib/google-maps";
+import MapSearchBox from "./MapSearchBox";
 
 type Props = {
   listings: Listing[];
   height?: string;
   zoom?: number;
   interactiveMarkers?: boolean;
+  searchable?: boolean;
 };
 
 export default function PropertyMap({
@@ -15,10 +17,13 @@ export default function PropertyMap({
   height = "26rem",
   zoom = 11,
   interactiveMarkers = true,
+  searchable = false,
 }: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
+  const searchMarkerRef = useRef<google.maps.Marker | null>(null);
+  const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -38,6 +43,8 @@ export default function PropertyMap({
             zoomControl: true,
 } as google.maps.MapOptions);
         }
+
+        setReady(true);
 
         markersRef.current.forEach((m) => m.setMap(null));
         markersRef.current = [];
@@ -102,5 +109,38 @@ export default function PropertyMap({
     );
   }
 
-  return <div ref={ref} style={{ height }} className="w-full rounded-xl" />;
+  const focusLocation = ({ lat, lng, label }: { lat: number; lng: number; label: string }) => {
+    const map = mapRef.current;
+    if (!map || !window.google?.maps) return;
+    const maps = window.google.maps;
+    const position = { lat, lng };
+    searchMarkerRef.current?.setMap(null);
+    searchMarkerRef.current = new maps.Marker({
+      position,
+      map,
+      title: label,
+      icon: {
+        path: maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        scale: 6,
+        fillColor: "#ffffff",
+        fillOpacity: 1,
+        strokeColor: "#D4AF37",
+        strokeWeight: 2,
+      },
+    });
+    map.panTo(position);
+    map.setZoom(13);
+  };
+
+  const clearSearch = () => {
+    searchMarkerRef.current?.setMap(null);
+    searchMarkerRef.current = null;
+  };
+
+  return (
+    <div className="relative w-full">
+      {searchable && ready && <MapSearchBox onSelect={focusLocation} onClear={clearSearch} />}
+      <div ref={ref} style={{ height }} className="w-full rounded-xl" />
+    </div>
+  );
 }
