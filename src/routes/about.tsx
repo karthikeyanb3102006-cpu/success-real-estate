@@ -25,7 +25,7 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   const [i, setI] = useState(0);
-  const t = testimonials[i];
+  const t = testimonials[i] ?? testimonials[0]!;
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
