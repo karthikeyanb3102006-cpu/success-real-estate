@@ -166,7 +166,7 @@ function Calculator({ price, deal }: { price: number; deal: "buy" | "rent" }) {
             Estimated monthly payment
           </p>
           <p className="font-display text-4xl text-gilded">
-            {Math.round(monthly).toLocaleString("en-IN")}
+            ₹{Math.round(monthly).toLocaleString("en-IN")}
             <span className="text-base text-muted-foreground"> /mo</span>
           </p>
         </>
