@@ -1,11 +1,13 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Bath, BedDouble, CalendarDays, Check, Heart, MapPin, Ruler } from "lucide-react";
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { formatPrice, getListing } from "@/data/properties";
 import { useFavorites } from "@/lib/favorites";
 import { cn } from "@/lib/utils";
+
+const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
 export const Route = createFileRoute("/properties/$id")({
   loader: ({ params }) => {
@@ -116,7 +118,25 @@ function PropertyDetail() {
             ))}
           </ul>
 
+          <h2 className="mt-12 font-display text-2xl">Location</h2>
+          <div className="mt-4 overflow-hidden rounded-xl border border-gold/40">
+            <ClientOnly fallback={<div className="h-80 w-full animate-pulse bg-surface" />}>
+              <Suspense fallback={<div className="h-80 w-full animate-pulse bg-surface" />}>
+                <PropertyMap
+                  listings={[listing]}
+                  height="20rem"
+                  zoom={14}
+                  interactiveMarkers={false}
+                />
+              </Suspense>
+            </ClientOnly>
+            <p className="border-t border-border/70 bg-card px-5 py-3 text-xs text-muted-foreground">
+              {listing.city} {listing.zip}
+            </p>
+          </div>
+
           <Calculator price={listing.price} deal={listing.deal} />
+
         </div>
 
         <aside className="h-fit lg:sticky lg:top-28">
