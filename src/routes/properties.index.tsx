@@ -205,29 +205,15 @@ function PropertiesPage() {
 function MapView({ results }: { results: typeof listings }) {
   return (
     <div className="mt-8 overflow-hidden rounded-xl border border-gold/40">
-      <div className="relative h-[26rem] bg-surface">
-        <div
-          className="absolute inset-0 opacity-40"
-          style={{
-            backgroundImage:
-              "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        {results.map((l, i) => (
-          <div
-            key={l.id}
-            className="absolute -translate-x-1/2 -translate-y-full"
-            style={{ left: `${12 + ((i * 17) % 76)}%`, top: `${26 + ((i * 23) % 58)}%` }}
-          >
-            <span className="whitespace-nowrap rounded-full border border-gold bg-background/90 px-3 py-1.5 text-xs text-gold shadow-[var(--shadow-gold)]">
-              {formatPrice(l)}
-            </span>
-          </div>
-        ))}
-      </div>
+      <ClientOnly
+        fallback={<div className="h-[26rem] w-full animate-pulse bg-surface" />}
+      >
+        <Suspense fallback={<div className="h-[26rem] w-full animate-pulse bg-surface" />}>
+          <PropertyMap listings={results} />
+        </Suspense>
+      </ClientOnly>
       <p className="border-t border-border/70 bg-card px-5 py-3 text-xs text-muted-foreground">
-        Approximate map preview — connect a live map provider for street-level detail.
+        Gold markers show each residence — hover for the price, click to view the full listing.
       </p>
     </div>
   );
