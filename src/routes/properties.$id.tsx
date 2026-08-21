@@ -116,7 +116,25 @@ function PropertyDetail() {
             ))}
           </ul>
 
+          <h2 className="mt-12 font-display text-2xl">Location</h2>
+          <div className="mt-4 overflow-hidden rounded-xl border border-gold/40">
+            <ClientOnly fallback={<div className="h-80 w-full animate-pulse bg-surface" />}>
+              <Suspense fallback={<div className="h-80 w-full animate-pulse bg-surface" />}>
+                <PropertyMap
+                  listings={[listing]}
+                  height="20rem"
+                  zoom={14}
+                  interactiveMarkers={false}
+                />
+              </Suspense>
+            </ClientOnly>
+            <p className="border-t border-border/70 bg-card px-5 py-3 text-xs text-muted-foreground">
+              {listing.city} {listing.zip}
+            </p>
+          </div>
+
           <Calculator price={listing.price} deal={listing.deal} />
+
         </div>
 
         <aside className="h-fit lg:sticky lg:top-28">
