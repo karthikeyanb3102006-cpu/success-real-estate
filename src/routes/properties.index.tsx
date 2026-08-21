@@ -152,9 +152,9 @@ function PropertiesPage() {
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
                 className="mt-2 h-11 w-full rounded-lg border border-border bg-background px-3 text-foreground outline-none"
               >
-                {[0, 15000, 900000, 3500000, 6000000].map((n) => (
+                {[0, 1000000, 10000000, 100000000, 1000000000, 5000000000].map((n) => (
                   <option key={n} value={n}>
-                    {n === 0 ? "No limit" : `$${n.toLocaleString()}`}
+                    {n === 0 ? "No limit" : `₹${n.toLocaleString("en-IN")}`}
                   </option>
                 ))}
               </select>

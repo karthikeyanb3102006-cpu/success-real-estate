@@ -148,12 +148,12 @@ function Calculator({ price, deal }: { price: number; deal: "buy" | "rent" }) {
       </h2>
       {deal === "rent" ? (
         <div className="mt-4 space-y-2 text-sm text-muted-foreground">
-          <p>Monthly rent: <span className="text-gold">${price.toLocaleString()}</span></p>
+          <p>Monthly rent: <span className="text-gold">₹{price.toLocaleString("en-IN")}</span></p>
           <p>
             Recommended household income:{" "}
-            <span className="text-gold">${(price * 40).toLocaleString()}</span> per year
+            <span className="text-gold">₹{(price * 40).toLocaleString("en-IN")}</span> per year
           </p>
-          <p>Typical move-in cost (first, last + deposit): <span className="text-gold">${(price * 3).toLocaleString()}</span></p>
+          <p>Typical move-in cost (first, last + deposit): <span className="text-gold">₹{(price * 3).toLocaleString("en-IN")}</span></p>
         </div>
       ) : (
         <>
@@ -166,7 +166,7 @@ function Calculator({ price, deal }: { price: number; deal: "buy" | "rent" }) {
             Estimated monthly payment
           </p>
           <p className="font-display text-4xl text-gilded">
-            ${Math.round(monthly).toLocaleString()}
+            ₹{Math.round(monthly).toLocaleString("en-IN")}
             <span className="text-base text-muted-foreground"> /mo</span>
           </p>
         </>

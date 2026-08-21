@@ -29,7 +29,7 @@ export const listings: Listing[] = [
     title: "Crown Ridge Villa",
     city: "Beverly Hills, CA",
     zip: "90210",
-    price: 4850000,
+    price: 4000000000,
     deal: "buy",
     type: "villa",
     beds: 5,
@@ -48,7 +48,7 @@ export const listings: Listing[] = [
     title: "The Skyline Penthouse",
     city: "Manhattan, NY",
     zip: "10019",
-    price: 12500,
+    price: 350000,
     deal: "rent",
     type: "apartment",
     beds: 3,
@@ -67,7 +67,7 @@ export const listings: Listing[] = [
     title: "Oakwood Family Home",
     city: "Naperville, IL",
     zip: "60540",
-    price: 875000,
+    price: 725000000,
     deal: "buy",
     type: "house",
     beds: 4,
@@ -86,7 +86,7 @@ export const listings: Listing[] = [
     title: "Azure Beach Residence",
     city: "Naples, FL",
     zip: "34102",
-    price: 3290000,
+    price: 2750000000,
     deal: "buy",
     type: "villa",
     beds: 4,
@@ -105,7 +105,7 @@ export const listings: Listing[] = [
     title: "Hillcrest Glass House",
     city: "Austin, TX",
     zip: "78703",
-    price: 8900,
+    price: 250000,
     deal: "rent",
     type: "house",
     beds: 4,
@@ -124,7 +124,7 @@ export const listings: Listing[] = [
     title: "Goldleaf Estate Lot",
     city: "Scottsdale, AZ",
     zip: "85255",
-    price: 640000,
+    price: 535000000,
     deal: "buy",
     type: "plot",
     beds: 0,
@@ -144,8 +144,8 @@ export const getListing = (id: string) => listings.find((l) => l.id === id);
 
 export const formatPrice = (l: Pick<Listing, "price" | "deal">) =>
   l.deal === "rent"
-    ? `$${l.price.toLocaleString()}/mo`
-    : `$${l.price.toLocaleString()}`;
+    ? `₹${l.price.toLocaleString("en-IN")}/mo`
+    : `₹${l.price.toLocaleString("en-IN")}`;
 
 export const testimonials = [
   {
