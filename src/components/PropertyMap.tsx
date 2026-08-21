@@ -36,7 +36,7 @@ export default function PropertyMap({
             styles: MAP_STYLE_LUXE,
             disableDefaultUI: true,
             zoomControl: true,
-015          } as google.maps.MapOptions);
+} as google.maps.MapOptions);
         }
 
         markersRef.current.forEach((m) => m.setMap(null));
