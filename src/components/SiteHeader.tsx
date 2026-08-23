@@ -66,7 +66,23 @@ export function SiteHeader() {
             <Heart className="h-4 w-4" />
             {ids.length}
           </Link>
+          {user ? (
+            <button
+              onClick={handleSignOut}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              <LogOut className="h-4 w-4" /> Sign out
+            </button>
+          ) : (
+            <Link
+              to="/auth"
+              className="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              Sign up
+            </Link>
+          )}
         </nav>
+
 
         <button
           className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gold/50 text-gold md:hidden"
