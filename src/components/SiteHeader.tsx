@@ -1,8 +1,11 @@
-import { Link } from "@tanstack/react-router";
-import { Heart, Menu } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Heart, LogOut, Menu } from "lucide-react";
 import { useState } from "react";
 
 import crest from "@/assets/logo-crest.png";
+import { supabase } from "@/integrations/supabase/client";
+import { useSession } from "@/lib/auth";
 import { useFavorites } from "@/lib/favorites";
 
 const nav = [
