@@ -107,6 +107,22 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          {user ? (
+            <button
+              onClick={handleSignOut}
+              className="mt-2 inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary text-sm font-semibold text-primary-foreground"
+            >
+              <LogOut className="h-4 w-4" /> Sign out
+            </button>
+          ) : (
+            <Link
+              to="/auth"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex h-11 items-center justify-center rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground"
+            >
+              Sign up
+            </Link>
+          )}
         </nav>
       ) : null}
     </header>
