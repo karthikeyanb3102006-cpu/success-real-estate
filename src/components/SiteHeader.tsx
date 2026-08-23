@@ -1,8 +1,11 @@
-import { Link } from "@tanstack/react-router";
-import { Heart, Menu } from "lucide-react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Heart, LogOut, Menu } from "lucide-react";
 import { useState } from "react";
 
 import crest from "@/assets/logo-crest.png";
+import { supabase } from "@/integrations/supabase/client";
+import { useSession } from "@/lib/auth";
 import { useFavorites } from "@/lib/favorites";
 
 const nav = [
@@ -16,6 +19,18 @@ const nav = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { ids } = useFavorites();
+  const { user } = useSession();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleSignOut() {
+    setOpen(false);
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/", replace: true });
+  }
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
@@ -51,7 +66,23 @@ export function SiteHeader() {
             <Heart className="h-4 w-4" />
             {ids.length}
           </Link>
+          {user ? (
+            <button
+              onClick={handleSignOut}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              <LogOut className="h-4 w-4" /> Sign out
+            </button>
+          ) : (
+            <Link
+              to="/auth"
+              className="inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              Sign up
+            </Link>
+          )}
         </nav>
+
 
         <button
           className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-gold/50 text-gold md:hidden"
@@ -76,6 +107,22 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          {user ? (
+            <button
+              onClick={handleSignOut}
+              className="mt-2 inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary text-sm font-semibold text-primary-foreground"
+            >
+              <LogOut className="h-4 w-4" /> Sign out
+            </button>
+          ) : (
+            <Link
+              to="/auth"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex h-11 items-center justify-center rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.14em] text-primary-foreground"
+            >
+              Sign up
+            </Link>
+          )}
         </nav>
       ) : null}
     </header>
