@@ -24,8 +24,10 @@ export function SiteFooter() {
         </div>
         <div className="text-sm text-muted-foreground">
           <p className="eyebrow">Concierge desk</p>
-          <p className="mt-4">+1 (800) 555-0199</p>
+          <p className="mt-4">+91 88077 39441</p>
           <p>concierge@successrealestate.com</p>
+          <p className="mt-4">NSK Street, Selvapuram, Perur Main Road,</p>
+          <p>Near GM Bakery, Coimbatore, Tamil Nadu</p>
           <p className="mt-4">Mon–Sat, 8am – 9pm local time</p>
         </div>
       </div>
