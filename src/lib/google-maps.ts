@@ -1,3 +1,5 @@
+/// <reference types="google.maps" />
+
 let loaderPromise: Promise<typeof google.maps> | null = null;
 
 declare global {
@@ -5,6 +7,7 @@ declare global {
     __successMapsReady?: () => void;
   }
 }
+
 
 export function loadGoogleMaps(): Promise<typeof google.maps> {
   if (typeof window === "undefined") return Promise.reject(new Error("Maps require a browser"));
