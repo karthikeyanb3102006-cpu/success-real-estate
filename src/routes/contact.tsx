@@ -63,10 +63,20 @@ function ContactPage() {
           <div className="rounded-xl border border-gold/35 bg-card p-6">
             <h2 className="font-display text-xl">Direct lines</h2>
             <div className="mt-4 space-y-3 text-sm text-muted-foreground">
-              <p className="inline-flex items-center gap-3"><Phone className="h-4 w-4 text-gold" /> +1 (800) 555-0199</p>
+              <p className="inline-flex items-center gap-3"><Phone className="h-4 w-4 text-gold" /> +91 88077 39441</p>
               <p className="inline-flex items-center gap-3"><Mail className="h-4 w-4 text-gold" /> concierge@successrealestate.com</p>
               <p className="inline-flex items-center gap-3"><MessageSquare className="h-4 w-4 text-gold" /> Live chat, 8am–9pm daily</p>
             </div>
+          </div>
+
+          <div className="rounded-xl border border-gold/35 bg-card p-6">
+            <h2 className="font-display text-xl">Office address</h2>
+            <address className="mt-4 not-italic text-sm leading-relaxed text-muted-foreground">
+              NSK Street, Selvapuram,<br />
+              Perur Main Road,<br />
+              Near GM Bakery,<br />
+              Coimbatore, Tamil Nadu
+            </address>
           </div>
 
           <div className="rounded-xl border border-gold/35 bg-card p-6">
