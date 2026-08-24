@@ -9,9 +9,8 @@ import { lovable } from "@/integrations/lovable/index";
 import { useSession } from "@/lib/auth";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({
-    next: typeof s['next'] === "string" ? s['next'] : undefined,
-  }),
+  validateSearch: (s: Record<string, unknown>): { next?: string } =>
+    typeof s['next'] === "string" ? { next: s['next'] } : {},
   head: () => ({
     meta: [
       { title: "Create Your Account — Success Real Estate" },
@@ -81,7 +80,7 @@ function AuthPage() {
           email: parsed.data.email,
           password: parsed.data.password,
           options: {
-            emailRedirectTo: returnUrl ?? window.location.origin,
+            emailRedirectTo: returnUrl() ?? window.location.origin,
             data: { full_name: parsed.data.fullName, phone: parsed.data.phone },
           },
         });
@@ -115,7 +114,7 @@ function AuthPage() {
   async function handleGoogle() {
     setBusy(true);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: returnUrl ?? window.location.origin,
+      redirect_uri: returnUrl() ?? window.location.origin,
     });
     if (result.error) {
       setBusy(false);
