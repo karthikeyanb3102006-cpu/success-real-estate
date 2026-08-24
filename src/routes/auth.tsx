@@ -50,7 +50,8 @@ function AuthPage() {
   const { next } = Route.useSearch();
   // Only same-origin relative paths may be used as a post-auth return target.
   const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
-  const returnUrl = safeNext ? window.location.origin + safeNext : undefined;
+  const returnUrl = () =>
+    safeNext && typeof window !== "undefined" ? window.location.origin + safeNext : undefined;
   const [mode, setMode] = useState<"signup" | "signin">("signup");
   const [form, setForm] = useState({ fullName: "", phone: "", email: "", password: "" });
   const [busy, setBusy] = useState(false);
