@@ -9,6 +9,9 @@ import { lovable } from "@/integrations/lovable/index";
 import { useSession } from "@/lib/auth";
 
 export const Route = createFileRoute("/auth")({
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s['next'] === "string" ? s['next'] : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Create Your Account — Success Real Estate" },
@@ -44,14 +47,21 @@ const signInSchema = z.object({
 function AuthPage() {
   const navigate = useNavigate();
   const { session } = useSession();
+  const { next } = Route.useSearch();
+  // Only same-origin relative paths may be used as a post-auth return target.
+  const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+  const returnUrl = safeNext ? window.location.origin + safeNext : undefined;
   const [mode, setMode] = useState<"signup" | "signin">("signup");
   const [form, setForm] = useState({ fullName: "", phone: "", email: "", password: "" });
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
-    if (session) navigate({ to: "/", replace: true });
-  }, [session, navigate]);
+    if (session) {
+      if (safeNext) window.location.replace(safeNext);
+      else navigate({ to: "/", replace: true });
+    }
+  }, [session, navigate, safeNext]);
 
   const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
@@ -70,7 +80,7 @@ function AuthPage() {
           email: parsed.data.email,
           password: parsed.data.password,
           options: {
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: returnUrl ?? window.location.origin,
             data: { full_name: parsed.data.fullName, phone: parsed.data.phone },
           },
         });
@@ -104,7 +114,7 @@ function AuthPage() {
   async function handleGoogle() {
     setBusy(true);
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+      redirect_uri: returnUrl ?? window.location.origin,
     });
     if (result.error) {
       setBusy(false);
@@ -112,7 +122,8 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/", replace: true });
+    if (safeNext) window.location.replace(safeNext);
+    else navigate({ to: "/", replace: true });
   }
 
   return (
