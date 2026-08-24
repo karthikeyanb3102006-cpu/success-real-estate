@@ -1,4 +1,5 @@
 import { auth, defineMcp } from "@lovable.dev/mcp-js";
+import type { AnyToolDefinition } from "@lovable.dev/mcp-js";
 
 import getMyProfileTool from "./tools/get-my-profile";
 import getPropertyTool from "./tools/get-property";
