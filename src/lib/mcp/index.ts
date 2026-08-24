@@ -16,5 +16,5 @@ export default defineMcp({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",
   }),
-  tools: [listPropertiesTool, getPropertyTool, getMyProfileTool],
+  tools: [listPropertiesTool, getPropertyTool, getMyProfileTool] as unknown as AnyToolDefinition[],
 });
