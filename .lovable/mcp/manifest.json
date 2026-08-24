@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "sdk_version": "0.28.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://dxqqbthojstynokgeytl.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "success-real-estate",
+      "version": "0.1.0",
+      "title": "Success real estate"
+    },
+    "tools": [
+      {
+        "name": "list_properties",
+        "title": "List properties",
+        "description": "List Success Real Estate listings, optionally filtered by deal (buy/rent), property type, city text, price range or minimum bedrooms. Prices are in Indian Rupees.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "deal": {
+              "description": "Only listings for sale or for rent.",
+              "type": "string",
+              "enum": [
+                "buy",
+                "rent"
+              ]
+            },
+            "type": {
+              "description": "Property type.",
+              "type": "string",
+              "enum": [
+                "house",
+                "apartment",
+                "villa",
+                "plot"
+              ]
+            },
+            "city": {
+              "description": "Case-insensitive match on city, state or ZIP.",
+              "type": "string"
+            },
+            "max_price": {
+              "description": "Maximum price in rupees (monthly rent for rentals).",
+              "type": "number"
+            },
+            "min_beds": {
+              "description": "Minimum number of bedrooms.",
+              "type": "number"
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_property",
+        "title": "Get property details",
+        "description": "Get full details for one Success Real Estate listing by its id, including amenities, size, year built and coordinates.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Listing id, e.g. crown-ridge-villa."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_my_profile",
+        "title": "Get my profile",
+        "description": "Return the signed-in Success Real Estate account's profile (name, phone, email) so the assistant can personalise property recommendations.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
