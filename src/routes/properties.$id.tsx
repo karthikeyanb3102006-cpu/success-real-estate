@@ -15,21 +15,63 @@ export const Route = createFileRoute("/properties/$id")({
     if (!listing) throw notFound();
     return { listing };
   },
-  head: ({ loaderData }) => {
+  head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Listing unavailable — Success Real Estate" }, { name: "robots", content: "noindex" }] };
     }
     const { listing } = loaderData;
     const title = `${listing.title}, ${listing.city} — Success Real Estate`;
+    const url = `https://success-real-estate.lovable.app/properties/${params['id']}`;
     return {
       meta: [
         { title },
         { name: "description", content: listing.blurb },
         { property: "og:title", content: title },
         { property: "og:description", content: listing.blurb },
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: url },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: listing.title,
+            description: listing.blurb,
+            image: listing.images,
+            url,
+            offers: {
+              "@type": "Offer",
+              price: listing.price,
+              priceCurrency: "INR",
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://success-real-estate.lovable.app/" },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Properties",
+                item: "https://success-real-estate.lovable.app/properties",
+              },
+              { "@type": "ListItem", position: 3, name: listing.title, item: url },
+            ],
+          }),
+        },
       ],
     };
   },
+
   component: PropertyDetail,
 });
 
@@ -60,11 +102,14 @@ function PropertyDetail() {
             <button
               key={img + i}
               onClick={() => setActive(i)}
+              aria-label={`Show ${listing.title} photo ${i + 1}`}
+              aria-pressed={i === active}
               className={cn(
                 "overflow-hidden rounded-lg border transition-all",
                 i === active ? "border-gold shadow-[var(--shadow-gold)]" : "border-border opacity-70 hover:opacity-100",
               )}
             >
+
               <img src={img} alt="" loading="lazy" width={1200} height={800} className="aspect-[3/2] w-full object-cover" />
             </button>
           ))}
@@ -243,13 +288,15 @@ function InquiryPanel({ title }: { title: string }) {
       <p className="text-sm text-muted-foreground">
         No sign-up required. Ask about {title} and we'll respond personally.
       </p>
-      <input required placeholder="Your name" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
-      <input required type="email" placeholder="Email or phone" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+      <input required aria-label="Your name" placeholder="Your name" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+      <input required type="email" aria-label="Email or phone" placeholder="Email or phone" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
       <textarea
         rows={3}
+        aria-label="Your message"
         defaultValue={`I'd like to know more about ${title}.`}
         className="w-full rounded-lg border border-border bg-background p-4 text-sm outline-none focus:border-gold"
       />
+
       <button className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90">
         {sent ? "Request sent" : "Send inquiry"}
       </button>

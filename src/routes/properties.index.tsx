@@ -77,9 +77,11 @@ function PropertiesPage() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search properties by city, neighborhood or ZIP"
               placeholder="City, neighborhood or ZIP"
               className="h-12 w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
             />
+
           </div>
           <div className="flex gap-2">
             {["all", "buy", "rent"].map((d) => (

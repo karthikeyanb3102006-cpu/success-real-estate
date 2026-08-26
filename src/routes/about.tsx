@@ -54,7 +54,7 @@ function AboutPage() {
       </div>
 
       <section className="mt-16 rounded-xl border border-gold/45 bg-card p-8 sm:p-12">
-        <p className="eyebrow">Success stories</p>
+        <h2 className="eyebrow">Success stories</h2>
         <blockquote className="mt-6 font-display text-2xl leading-relaxed sm:text-3xl">
           “{t.quote}”
         </blockquote>

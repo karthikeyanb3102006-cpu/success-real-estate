@@ -12,3 +12,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://success-real-estate.lovable.app/sitemap.xml
+

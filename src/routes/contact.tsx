@@ -6,19 +6,60 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact & Alerts — Success Real Estate" },
+      { title: "Contact Success Real Estate Concierge — Coimbatore" },
       {
         name: "description",
         content:
-          "Reach a Success Real Estate advisor, schedule a private tour, or set alerts for new listings and price drops.",
+          "Reach a Success Real Estate advisor in Coimbatore, schedule a private tour, or set alerts for new listings and price drops.",
       },
-      { property: "og:title", content: "Contact & Alerts — Success Real Estate" },
+      { property: "og:title", content: "Contact Success Real Estate Concierge" },
       {
         property: "og:description",
         content: "Talk to an advisor or set saved-search alerts. No long sign-up required.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://success-real-estate.lovable.app/contact" },
+    ],
+    links: [{ rel: "canonical", href: "https://success-real-estate.lovable.app/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "RealEstateAgent",
+          name: "Success Real Estate",
+          url: "https://success-real-estate.lovable.app/",
+          telephone: "+91 88077 39441",
+          email: "concierge@successrealestate.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "NSK Street, Selvapuram, Perur Main Road, Near GM Bakery",
+            addressLocality: "Coimbatore",
+            addressRegion: "Tamil Nadu",
+            addressCountry: "IN",
+          },
+          openingHours: "Mo-Sa 08:00-21:00",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://success-real-estate.lovable.app/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Contact",
+              item: "https://success-real-estate.lovable.app/contact",
+            },
+          ],
+        }),
+      },
     ],
   }),
+
   component: ContactPage,
 });
 
@@ -28,7 +69,7 @@ function ContactPage() {
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
       <p className="eyebrow">Concierge desk</p>
-      <h1 className="mt-3 font-display text-4xl sm:text-5xl">We answer personally</h1>
+      <h1 className="mt-3 font-display text-4xl sm:text-5xl">Contact Success Real Estate Concierge</h1>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
         <form
@@ -40,10 +81,10 @@ function ContactPage() {
         >
           <h2 className="font-display text-2xl">Send an inquiry</h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <input required placeholder="Full name" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
-            <input required placeholder="Email or phone" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+            <input required aria-label="Full name" placeholder="Full name" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+            <input required aria-label="Email or phone" placeholder="Email or phone" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
           </div>
-          <select className="h-12 w-full rounded-lg border border-border bg-background px-4 text-foreground outline-none focus:border-gold">
+          <select aria-label="What can we help you with?" className="h-12 w-full rounded-lg border border-border bg-background px-4 text-foreground outline-none focus:border-gold">
             <option>I'm looking to buy</option>
             <option>I'm looking to rent</option>
             <option>I'd like to sell</option>
@@ -51,9 +92,11 @@ function ContactPage() {
           </select>
           <textarea
             rows={5}
+            aria-label="Your message"
             placeholder="Tell us what you're looking for…"
             className="w-full rounded-lg border border-border bg-background p-4 text-sm outline-none focus:border-gold"
           />
+
           <button className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90">
             Send message
           </button>
