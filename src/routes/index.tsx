@@ -53,7 +53,11 @@ function Index() {
           <img src={crest} alt="Success Real Estate crest" width={96} height={96} className="h-24 w-24 rise" />
           <h1 className="mt-6 font-display text-5xl leading-tight sm:text-7xl">
             <span className="shimmer">Success Real Estate</span>
+            <span className="mt-3 block font-display text-2xl text-foreground sm:text-3xl">
+              Luxury Homes to Buy &amp; Rent in Coimbatore
+            </span>
           </h1>
+
           <p className="mt-4 text-sm uppercase tracking-[0.42em] text-gold-soft">
             Your Dream • Our Priority
           </p>
@@ -86,9 +90,11 @@ function Index() {
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                aria-label="Search homes by city, neighborhood or ZIP"
                 placeholder="City, neighborhood or ZIP"
                 className="h-12 w-full bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
               />
+
             </div>
             <Link
               to="/properties"

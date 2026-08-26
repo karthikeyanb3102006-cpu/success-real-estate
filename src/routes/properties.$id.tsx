@@ -102,11 +102,14 @@ function PropertyDetail() {
             <button
               key={img + i}
               onClick={() => setActive(i)}
+              aria-label={`Show ${listing.title} photo ${i + 1}`}
+              aria-pressed={i === active}
               className={cn(
                 "overflow-hidden rounded-lg border transition-all",
                 i === active ? "border-gold shadow-[var(--shadow-gold)]" : "border-border opacity-70 hover:opacity-100",
               )}
             >
+
               <img src={img} alt="" loading="lazy" width={1200} height={800} className="aspect-[3/2] w-full object-cover" />
             </button>
           ))}
