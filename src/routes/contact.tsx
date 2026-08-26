@@ -6,19 +6,60 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact & Alerts — Success Real Estate" },
+      { title: "Contact Success Real Estate Concierge — Coimbatore" },
       {
         name: "description",
         content:
-          "Reach a Success Real Estate advisor, schedule a private tour, or set alerts for new listings and price drops.",
+          "Reach a Success Real Estate advisor in Coimbatore, schedule a private tour, or set alerts for new listings and price drops.",
       },
-      { property: "og:title", content: "Contact & Alerts — Success Real Estate" },
+      { property: "og:title", content: "Contact Success Real Estate Concierge" },
       {
         property: "og:description",
         content: "Talk to an advisor or set saved-search alerts. No long sign-up required.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://success-real-estate.lovable.app/contact" },
+    ],
+    links: [{ rel: "canonical", href: "https://success-real-estate.lovable.app/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "RealEstateAgent",
+          name: "Success Real Estate",
+          url: "https://success-real-estate.lovable.app/",
+          telephone: "+91 88077 39441",
+          email: "concierge@successrealestate.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "NSK Street, Selvapuram, Perur Main Road, Near GM Bakery",
+            addressLocality: "Coimbatore",
+            addressRegion: "Tamil Nadu",
+            addressCountry: "IN",
+          },
+          openingHours: "Mo-Sa 08:00-21:00",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://success-real-estate.lovable.app/" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Contact",
+              item: "https://success-real-estate.lovable.app/contact",
+            },
+          ],
+        }),
+      },
     ],
   }),
+
   component: ContactPage,
 });
 
