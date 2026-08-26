@@ -15,21 +15,63 @@ export const Route = createFileRoute("/properties/$id")({
     if (!listing) throw notFound();
     return { listing };
   },
-  head: ({ loaderData }) => {
+  head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Listing unavailable — Success Real Estate" }, { name: "robots", content: "noindex" }] };
     }
     const { listing } = loaderData;
     const title = `${listing.title}, ${listing.city} — Success Real Estate`;
+    const url = `https://success-real-estate.lovable.app/properties/${params['id']}`;
     return {
       meta: [
         { title },
         { name: "description", content: listing.blurb },
         { property: "og:title", content: title },
         { property: "og:description", content: listing.blurb },
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: url },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: listing.title,
+            description: listing.blurb,
+            image: listing.images,
+            url,
+            offers: {
+              "@type": "Offer",
+              price: listing.price,
+              priceCurrency: "INR",
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://success-real-estate.lovable.app/" },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Properties",
+                item: "https://success-real-estate.lovable.app/properties",
+              },
+              { "@type": "ListItem", position: 3, name: listing.title, item: url },
+            ],
+          }),
+        },
       ],
     };
   },
+
   component: PropertyDetail,
 });
 
