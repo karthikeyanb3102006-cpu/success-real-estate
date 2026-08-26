@@ -288,13 +288,15 @@ function InquiryPanel({ title }: { title: string }) {
       <p className="text-sm text-muted-foreground">
         No sign-up required. Ask about {title} and we'll respond personally.
       </p>
-      <input required placeholder="Your name" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
-      <input required type="email" placeholder="Email or phone" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+      <input required aria-label="Your name" placeholder="Your name" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+      <input required type="email" aria-label="Email or phone" placeholder="Email or phone" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
       <textarea
         rows={3}
+        aria-label="Your message"
         defaultValue={`I'd like to know more about ${title}.`}
         className="w-full rounded-lg border border-border bg-background p-4 text-sm outline-none focus:border-gold"
       />
+
       <button className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90">
         {sent ? "Request sent" : "Send inquiry"}
       </button>

@@ -69,7 +69,7 @@ function ContactPage() {
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
       <p className="eyebrow">Concierge desk</p>
-      <h1 className="mt-3 font-display text-4xl sm:text-5xl">We answer personally</h1>
+      <h1 className="mt-3 font-display text-4xl sm:text-5xl">Contact Success Real Estate Concierge</h1>
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
         <form
@@ -81,10 +81,10 @@ function ContactPage() {
         >
           <h2 className="font-display text-2xl">Send an inquiry</h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <input required placeholder="Full name" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
-            <input required placeholder="Email or phone" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+            <input required aria-label="Full name" placeholder="Full name" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+            <input required aria-label="Email or phone" placeholder="Email or phone" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
           </div>
-          <select className="h-12 w-full rounded-lg border border-border bg-background px-4 text-foreground outline-none focus:border-gold">
+          <select aria-label="What can we help you with?" className="h-12 w-full rounded-lg border border-border bg-background px-4 text-foreground outline-none focus:border-gold">
             <option>I'm looking to buy</option>
             <option>I'm looking to rent</option>
             <option>I'd like to sell</option>
@@ -92,9 +92,11 @@ function ContactPage() {
           </select>
           <textarea
             rows={5}
+            aria-label="Your message"
             placeholder="Tell us what you're looking for…"
             className="w-full rounded-lg border border-border bg-background p-4 text-sm outline-none focus:border-gold"
           />
+
           <button className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90">
             Send message
           </button>
