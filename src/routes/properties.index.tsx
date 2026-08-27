@@ -222,7 +222,7 @@ function PropertiesPage() {
   );
 }
 
-function MapView({ results }: { results: typeof listings }) {
+function MapView({ results }: { results: Listing[] }) {
   return (
     <div className="mt-8 overflow-hidden rounded-xl border border-gold/40">
       <ClientOnly
