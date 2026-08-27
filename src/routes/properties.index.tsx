@@ -4,8 +4,11 @@ import { List, MapPin, Search, SlidersHorizontal } from "lucide-react";
 import { lazy, Suspense, useState } from "react";
 import { z } from "zod";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+
 import { PropertyCard } from "@/components/PropertyCard";
-import { formatPrice, listings } from "@/data/properties";
+import type { Listing } from "@/data/properties";
+import { propertiesQuery } from "@/lib/properties.queries";
 
 const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
