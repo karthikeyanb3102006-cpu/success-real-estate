@@ -34,6 +34,17 @@ export const Route = createFileRoute("/properties/")({
       },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(propertiesQuery),
+  errorComponent: () => (
+    <p className="mx-auto max-w-6xl px-5 py-24 text-center text-muted-foreground">
+      We couldn't load the listings right now. Please refresh in a moment.
+    </p>
+  ),
+  notFoundComponent: () => (
+    <p className="mx-auto max-w-6xl px-5 py-24 text-center text-muted-foreground">
+      Page not found.
+    </p>
+  ),
   component: PropertiesPage,
 });
 
