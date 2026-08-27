@@ -4,8 +4,11 @@ import { List, MapPin, Search, SlidersHorizontal } from "lucide-react";
 import { lazy, Suspense, useState } from "react";
 import { z } from "zod";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+
 import { PropertyCard } from "@/components/PropertyCard";
-import { formatPrice, listings } from "@/data/properties";
+import type { Listing } from "@/data/properties";
+import { propertiesQuery } from "@/lib/properties.queries";
 
 const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
@@ -31,6 +34,17 @@ export const Route = createFileRoute("/properties/")({
       },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(propertiesQuery),
+  errorComponent: () => (
+    <p className="mx-auto max-w-6xl px-5 py-24 text-center text-muted-foreground">
+      We couldn't load the listings right now. Please refresh in a moment.
+    </p>
+  ),
+  notFoundComponent: () => (
+    <p className="mx-auto max-w-6xl px-5 py-24 text-center text-muted-foreground">
+      Page not found.
+    </p>
+  ),
   component: PropertiesPage,
 });
 
@@ -50,6 +64,8 @@ function PropertiesPage() {
 
   const dealParam = search["deal"];
   const deal = ["buy", "rent"].includes(dealParam) ? dealParam : "all";
+
+  const { data: listings } = useSuspenseQuery(propertiesQuery);
 
   const results = listings.filter((l) => {
     const q = query.trim().toLowerCase();
@@ -206,7 +222,7 @@ function PropertiesPage() {
   );
 }
 
-function MapView({ results }: { results: typeof listings }) {
+function MapView({ results }: { results: Listing[] }) {
   return (
     <div className="mt-8 overflow-hidden rounded-xl border border-gold/40">
       <ClientOnly
