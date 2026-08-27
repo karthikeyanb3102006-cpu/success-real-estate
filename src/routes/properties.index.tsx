@@ -65,6 +65,8 @@ function PropertiesPage() {
   const dealParam = search["deal"];
   const deal = ["buy", "rent"].includes(dealParam) ? dealParam : "all";
 
+  const { data: listings } = useSuspenseQuery(propertiesQuery);
+
   const results = listings.filter((l) => {
     const q = query.trim().toLowerCase();
     if (q && !`${l.city} ${l.zip} ${l.title}`.toLowerCase().includes(q)) return false;
