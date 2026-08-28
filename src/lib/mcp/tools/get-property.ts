@@ -1,7 +1,8 @@
 import { defineTool, ToolError } from "@lovable.dev/mcp-js";
 import { z } from "zod";
 
-import { formatPrice, getListing } from "@/data/properties";
+import { formatPrice } from "@/data/properties";
+import { getPropertyFn } from "@/lib/properties.functions";
 
 export default defineTool({
   name: "get_property",
@@ -10,8 +11,8 @@ export default defineTool({
     "Get full details for one Success Real Estate listing by its id, including amenities, size, year built and coordinates.",
   inputSchema: { id: z.string().describe("Listing id, e.g. crown-ridge-villa.") },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: ({ id }) => {
-    const l = getListing(id);
+  handler: async ({ id }) => {
+    const l = await getPropertyFn({ data: { slug: id } });
     if (!l) throw new ToolError(`No listing found with id "${id}".`);
 
     const detail = {

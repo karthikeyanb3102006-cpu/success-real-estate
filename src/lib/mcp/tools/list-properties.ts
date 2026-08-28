@@ -1,7 +1,8 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
 
-import { formatPrice, listings } from "@/data/properties";
+import { formatPrice } from "@/data/properties";
+import { listPropertiesFn } from "@/lib/properties.functions";
 
 export default defineTool({
   name: "list_properties",
@@ -16,8 +17,9 @@ export default defineTool({
     min_beds: z.number().optional().describe("Minimum number of bedrooms."),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
-  handler: ({ deal, type, city, max_price, min_beds }) => {
+  handler: async ({ deal, type, city, max_price, min_beds }) => {
     const q = city?.trim().toLowerCase();
+    const listings = await listPropertiesFn();
     const results = listings.filter(
       (l) =>
         (!deal || l.deal === deal) &&
