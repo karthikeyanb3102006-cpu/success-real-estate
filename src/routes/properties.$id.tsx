@@ -3,15 +3,16 @@ import { Bath, BedDouble, CalendarDays, Check, Heart, MapPin, Ruler } from "luci
 import { lazy, Suspense, useMemo, useState } from "react";
 import { toast } from "sonner";
 
-import { formatPrice, getListing } from "@/data/properties";
+import { formatPrice } from "@/data/properties";
 import { useFavorites } from "@/lib/favorites";
+import { propertyQuery } from "@/lib/properties.queries";
 import { cn } from "@/lib/utils";
 
 const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
 export const Route = createFileRoute("/properties/$id")({
-  loader: ({ params }) => {
-    const listing = getListing(params.id);
+  loader: async ({ params, context }) => {
+    const listing = await context.queryClient.ensureQueryData(propertyQuery(params.id));
     if (!listing) throw notFound();
     return { listing };
   },

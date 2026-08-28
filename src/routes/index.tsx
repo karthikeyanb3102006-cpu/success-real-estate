@@ -4,10 +4,13 @@ import { Building2, Key, Search, ShieldCheck, Star, Tag } from "lucide-react";
 import hero from "@/assets/hero-estate.jpg";
 import crest from "@/assets/logo-crest.png";
 import { PropertyCard } from "@/components/PropertyCard";
-import { listings, testimonials } from "@/data/properties";
+import { testimonials } from "@/data/properties";
+import { propertiesQuery } from "@/lib/properties.queries";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(propertiesQuery),
   head: () => ({
     meta: [
       { title: "Success Real Estate — Luxury Homes to Buy & Rent" },
@@ -36,6 +39,7 @@ const intents = [
 function Index() {
   const [intent, setIntent] = useState<(typeof intents)[number]["key"]>("buy");
   const [query, setQuery] = useState("");
+  const { data: listings } = useSuspenseQuery(propertiesQuery);
   const featured = listings.slice(0, 3);
 
   return (

@@ -2,8 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Trash2 } from "lucide-react";
 
 import { PropertyCard } from "@/components/PropertyCard";
-import { formatPrice, listings } from "@/data/properties";
+import { formatPrice } from "@/data/properties";
 import { useFavorites } from "@/lib/favorites";
+import { propertiesQuery } from "@/lib/properties.queries";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/collection")({
   head: () => ({
@@ -17,11 +19,13 @@ export const Route = createFileRoute("/collection")({
       { property: "og:description", content: "Compare up to three saved properties side by side." },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(propertiesQuery),
   component: CollectionPage,
 });
 
 function CollectionPage() {
   const { ids, remove } = useFavorites();
+  const { data: listings } = useSuspenseQuery(propertiesQuery);
   const saved = listings.filter((l) => ids.includes(l.id));
   const compare = saved.slice(0, 3);
 

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-import { listings } from "@/data/properties";
+import { listPropertiesFn } from "@/lib/properties.functions";
 
 const BASE_URL = "https://success-real-estate.lovable.app";
 
@@ -15,6 +15,12 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        let listings: { id: string }[] = [];
+        try {
+          listings = await listPropertiesFn();
+        } catch {
+          listings = [];
+        }
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/properties", changefreq: "daily", priority: "0.9" },
