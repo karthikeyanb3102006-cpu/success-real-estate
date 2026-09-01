@@ -73,7 +73,10 @@ export function PropertyImageManager({
     const imageId = replacingId.current;
     if (!imageId) return;
     const problem = validate([file]);
-    if (problem) return toast.error(problem);
+    if (problem) {
+      toast.error(problem);
+      return;
+    }
     setBusy(imageId);
     try {
       const path = await upload(file);
