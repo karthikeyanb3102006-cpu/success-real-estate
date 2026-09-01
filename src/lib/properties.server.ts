@@ -26,10 +26,10 @@ export function serverPublicSupabase(): SupabaseClient<Database> {
 }
 
 type Row = Database["public"]["Tables"]["properties"]["Row"] & {
-  property_images?: { path: string; sort_order: number }[] | null;
+  property_images?: { path: string; sort_order: number; alt?: string | null }[] | null;
 };
 
-export const PROPERTY_SELECT = "*, property_images(path, sort_order)";
+export const PROPERTY_SELECT = "*, property_images(path, sort_order, alt)";
 
 /** Resolves storage paths (or absolute URLs) into browser-usable image URLs. */
 export async function resolveImageUrls(
@@ -52,28 +52,41 @@ export async function resolveImageUrls(
 }
 
 export function rowToListing(row: Row, urls: Record<string, string>): Listing {
+  const place = [row.locality, row.city].filter(Boolean).join(", ");
   const images = [...(row.property_images ?? [])]
     .sort((a, b) => a.sort_order - b.sort_order)
-    .map((i) => urls[i.path])
-    .filter((u): u is string => Boolean(u));
+    .map((i) => ({
+      url: urls[i.path] ?? "",
+      alt: (i.alt ?? "").trim() || `${row.title} in ${place}`,
+    }))
+    .filter((i) => Boolean(i.url));
 
   return {
     id: row.slug,
     title: row.title,
     city: row.city,
+    locality: row.locality ?? "",
     zip: row.zip,
     price: Number(row.price),
     deal: row.deal as Listing["deal"],
     type: row.type as Listing["type"],
     beds: row.beds,
     baths: row.baths,
+    parking: row.parking ?? 0,
     sqft: row.sqft,
     year: row.year,
+    status: row.status ?? "available",
     images,
     amenities: row.amenities ?? [],
     blurb: row.description,
     lat: row.lat,
     lng: row.lng,
+    seoTitle: row.seo_title ?? "",
+    seoDescription: row.seo_description ?? "",
+    noindex: row.noindex ?? false,
+    isDemo: row.is_demo ?? false,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
   };
 }
 
@@ -85,3 +98,4 @@ export async function rowsToListings(
   const urls = await resolveImageUrls(supabase, paths);
   return rows.map((r) => rowToListing(r, urls));
 }
+
