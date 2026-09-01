@@ -14,6 +14,102 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_posts: {
+        Row: {
+          author: string
+          body: string
+          category: string
+          cover_alt: string
+          cover_path: string
+          created_at: string
+          excerpt: string
+          id: string
+          published: boolean
+          published_at: string | null
+          seo_description: string
+          seo_title: string
+          slug: string
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string
+          body?: string
+          category?: string
+          cover_alt?: string
+          cover_path?: string
+          created_at?: string
+          excerpt?: string
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          seo_description?: string
+          seo_title?: string
+          slug: string
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string
+          body?: string
+          category?: string
+          cover_alt?: string
+          cover_path?: string
+          created_at?: string
+          excerpt?: string
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          seo_description?: string
+          seo_title?: string
+          slug?: string
+          tags?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      locations: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+          published: boolean
+          seo_description: string
+          seo_title: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+          published?: boolean
+          seo_description?: string
+          seo_title?: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+          published?: boolean
+          seo_description?: string
+          seo_title?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -48,12 +144,19 @@ export type Database = {
           deal: string
           description: string
           id: string
+          is_demo: boolean
           lat: number
           lng: number
+          locality: string
+          noindex: boolean
+          parking: number
           price: number
           published: boolean
+          seo_description: string
+          seo_title: string
           slug: string
           sqft: number
+          status: string
           title: string
           type: string
           updated_at: string
@@ -69,12 +172,19 @@ export type Database = {
           deal?: string
           description?: string
           id?: string
+          is_demo?: boolean
           lat?: number
           lng?: number
+          locality?: string
+          noindex?: boolean
+          parking?: number
           price?: number
           published?: boolean
+          seo_description?: string
+          seo_title?: string
           slug: string
           sqft?: number
+          status?: string
           title: string
           type?: string
           updated_at?: string
@@ -90,12 +200,19 @@ export type Database = {
           deal?: string
           description?: string
           id?: string
+          is_demo?: boolean
           lat?: number
           lng?: number
+          locality?: string
+          noindex?: boolean
+          parking?: number
           price?: number
           published?: boolean
+          seo_description?: string
+          seo_title?: string
           slug?: string
           sqft?: number
+          status?: string
           title?: string
           type?: string
           updated_at?: string
@@ -141,6 +258,54 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      site_settings: {
+        Row: {
+          address: string
+          city: string
+          country: string
+          email: string
+          id: number
+          phone: string
+          postal_code: string
+          region: string
+          site_description: string
+          site_title: string
+          social_image: string
+          updated_at: string
+          whatsapp: string
+        }
+        Insert: {
+          address?: string
+          city?: string
+          country?: string
+          email?: string
+          id?: number
+          phone?: string
+          postal_code?: string
+          region?: string
+          site_description?: string
+          site_title?: string
+          social_image?: string
+          updated_at?: string
+          whatsapp?: string
+        }
+        Update: {
+          address?: string
+          city?: string
+          country?: string
+          email?: string
+          id?: number
+          phone?: string
+          postal_code?: string
+          region?: string
+          site_description?: string
+          site_title?: string
+          social_image?: string
+          updated_at?: string
+          whatsapp?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
