@@ -51,7 +51,10 @@ export function PropertyImageManager({
 
   async function handleAdd(files: File[]) {
     const problem = validate(files);
-    if (problem) return toast.error(problem);
+    if (problem) {
+      toast.error(problem);
+      return;
+    }
     setBusy("add");
     try {
       const paths: string[] = [];
