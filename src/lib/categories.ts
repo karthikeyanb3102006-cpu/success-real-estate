@@ -164,3 +164,45 @@ export function filterByCategory(listings: Listing[], def: CategoryDef) {
   );
   return local.length > 0 ? { results: local, cityOnly: true } : { results: base, cityOnly: false };
 }
+
+export function categoryHead(def: CategoryDef) {
+  const url = `${SITE_URL}${def.canonicalPath ?? def.path}`;
+  return {
+    meta: [
+      { title: def.title },
+      { name: "description", content: def.description },
+      { property: "og:title", content: def.title },
+      { property: "og:description", content: def.description },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: url },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: url }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+            { "@type": "ListItem", position: 2, name: "Properties", item: `${SITE_URL}/properties` },
+            { "@type": "ListItem", position: 3, name: def.h1, item: `${SITE_URL}${def.path}` },
+          ],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: def.faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
+  };
+}
