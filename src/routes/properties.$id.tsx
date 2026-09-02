@@ -41,7 +41,7 @@ export const Route = createFileRoute("/properties/$id")({
             "@type": "Product",
             name: listing.title,
             description: listing.blurb,
-            image: listing.images,
+            image: listing.images.map((i) => i.url),
             url,
             offers: {
               "@type": "Offer",
@@ -91,8 +91,8 @@ function PropertyDetail() {
       <div className="mt-6 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
         <div className="overflow-hidden rounded-xl frame-gold">
           <img
-            src={listing.images[active]}
-            alt={`${listing.title} photo ${active + 1}`}
+            src={listing.images[active]?.url}
+            alt={listing.images[active]?.alt || `${listing.title} photo ${active + 1}`}
             width={1200}
             height={800}
             className="aspect-[3/2] w-full object-cover"
@@ -101,7 +101,7 @@ function PropertyDetail() {
         <div className="grid grid-cols-3 gap-3 lg:grid-cols-1">
           {listing.images.map((img, i) => (
             <button
-              key={img + i}
+              key={img.url + i}
               onClick={() => setActive(i)}
               aria-label={`Show ${listing.title} photo ${i + 1}`}
               aria-pressed={i === active}
@@ -111,7 +111,7 @@ function PropertyDetail() {
               )}
             >
 
-              <img src={img} alt="" loading="lazy" width={1200} height={800} className="aspect-[3/2] w-full object-cover" />
+              <img src={img.url} alt="" loading="lazy" width={1200} height={800} className="aspect-[3/2] w-full object-cover" />
             </button>
           ))}
         </div>

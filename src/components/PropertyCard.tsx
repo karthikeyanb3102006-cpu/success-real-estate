@@ -14,8 +14,8 @@ export function PropertyCard({ listing }: { listing: Listing }) {
       <div className="relative aspect-[4/3] overflow-hidden">
         <Link to="/properties/$id" params={{ id: listing.id }}>
           <img
-            src={listing.images[0]}
-            alt={`${listing.title} in ${listing.city}`}
+            src={listing.images[0]?.url}
+            alt={listing.images[0]?.alt || `${listing.title} in ${listing.city}`}
             loading="lazy"
             width={1200}
             height={800}
