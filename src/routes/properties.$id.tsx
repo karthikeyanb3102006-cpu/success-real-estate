@@ -101,7 +101,7 @@ function PropertyDetail() {
         <div className="grid grid-cols-3 gap-3 lg:grid-cols-1">
           {listing.images.map((img, i) => (
             <button
-              key={img + i}
+              key={img.url + i}
               onClick={() => setActive(i)}
               aria-label={`Show ${listing.title} photo ${i + 1}`}
               aria-pressed={i === active}
