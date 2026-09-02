@@ -41,7 +41,7 @@ export const Route = createFileRoute("/properties/$id")({
             "@type": "Product",
             name: listing.title,
             description: listing.blurb,
-            image: listing.images,
+            image: listing.images.map((i) => i.url),
             url,
             offers: {
               "@type": "Offer",
