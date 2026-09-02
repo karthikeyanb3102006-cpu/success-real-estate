@@ -111,7 +111,7 @@ function PropertyDetail() {
               )}
             >
 
-              <img src={img} alt="" loading="lazy" width={1200} height={800} className="aspect-[3/2] w-full object-cover" />
+              <img src={img.url} alt="" loading="lazy" width={1200} height={800} className="aspect-[3/2] w-full object-cover" />
             </button>
           ))}
         </div>
