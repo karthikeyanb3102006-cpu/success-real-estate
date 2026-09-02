@@ -15,8 +15,15 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FlatsForSaleCoimbatoreRouteImport } from './routes/flats-for-sale-coimbatore'
+import { Route as HousesForSaleCoimbatoreRouteImport } from './routes/houses-for-sale-coimbatore'
+import { Route as LandForSaleCoimbatoreRouteImport } from './routes/land-for-sale-coimbatore'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PlotsForSaleCoimbatoreRouteImport } from './routes/plots-for-sale-coimbatore'
+import { Route as PropertiesForRentCoimbatoreRouteImport } from './routes/properties-for-rent-coimbatore'
+import { Route as PropertiesForSaleCoimbatoreRouteImport } from './routes/properties-for-sale-coimbatore'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as VillasForSaleCoimbatoreRouteImport } from './routes/villas-for-sale-coimbatore'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
@@ -56,14 +63,51 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlatsForSaleCoimbatoreRoute = FlatsForSaleCoimbatoreRouteImport.update({
+  id: '/flats-for-sale-coimbatore',
+  path: '/flats-for-sale-coimbatore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HousesForSaleCoimbatoreRoute = HousesForSaleCoimbatoreRouteImport.update({
+  id: '/houses-for-sale-coimbatore',
+  path: '/houses-for-sale-coimbatore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandForSaleCoimbatoreRoute = LandForSaleCoimbatoreRouteImport.update({
+  id: '/land-for-sale-coimbatore',
+  path: '/land-for-sale-coimbatore',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlotsForSaleCoimbatoreRoute = PlotsForSaleCoimbatoreRouteImport.update({
+  id: '/plots-for-sale-coimbatore',
+  path: '/plots-for-sale-coimbatore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PropertiesForRentCoimbatoreRoute =
+  PropertiesForRentCoimbatoreRouteImport.update({
+    id: '/properties-for-rent-coimbatore',
+    path: '/properties-for-rent-coimbatore',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PropertiesForSaleCoimbatoreRoute =
+  PropertiesForSaleCoimbatoreRouteImport.update({
+    id: '/properties-for-sale-coimbatore',
+    path: '/properties-for-sale-coimbatore',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VillasForSaleCoimbatoreRoute = VillasForSaleCoimbatoreRouteImport.update({
+  id: '/villas-for-sale-coimbatore',
+  path: '/villas-for-sale-coimbatore',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -122,8 +166,15 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
+  '/flats-for-sale-coimbatore': typeof FlatsForSaleCoimbatoreRoute
+  '/houses-for-sale-coimbatore': typeof HousesForSaleCoimbatoreRoute
+  '/land-for-sale-coimbatore': typeof LandForSaleCoimbatoreRoute
   '/mcp': typeof McpRoute
+  '/plots-for-sale-coimbatore': typeof PlotsForSaleCoimbatoreRoute
+  '/properties-for-rent-coimbatore': typeof PropertiesForRentCoimbatoreRoute
+  '/properties-for-sale-coimbatore': typeof PropertiesForSaleCoimbatoreRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/villas-for-sale-coimbatore': typeof VillasForSaleCoimbatoreRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/properties/$id': typeof PropertiesIdRoute
@@ -140,8 +191,15 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
+  '/flats-for-sale-coimbatore': typeof FlatsForSaleCoimbatoreRoute
+  '/houses-for-sale-coimbatore': typeof HousesForSaleCoimbatoreRoute
+  '/land-for-sale-coimbatore': typeof LandForSaleCoimbatoreRoute
   '/mcp': typeof McpRoute
+  '/plots-for-sale-coimbatore': typeof PlotsForSaleCoimbatoreRoute
+  '/properties-for-rent-coimbatore': typeof PropertiesForRentCoimbatoreRoute
+  '/properties-for-sale-coimbatore': typeof PropertiesForSaleCoimbatoreRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/villas-for-sale-coimbatore': typeof VillasForSaleCoimbatoreRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/properties/$id': typeof PropertiesIdRoute
@@ -160,8 +218,15 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
+  '/flats-for-sale-coimbatore': typeof FlatsForSaleCoimbatoreRoute
+  '/houses-for-sale-coimbatore': typeof HousesForSaleCoimbatoreRoute
+  '/land-for-sale-coimbatore': typeof LandForSaleCoimbatoreRoute
   '/mcp': typeof McpRoute
+  '/plots-for-sale-coimbatore': typeof PlotsForSaleCoimbatoreRoute
+  '/properties-for-rent-coimbatore': typeof PropertiesForRentCoimbatoreRoute
+  '/properties-for-sale-coimbatore': typeof PropertiesForSaleCoimbatoreRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/villas-for-sale-coimbatore': typeof VillasForSaleCoimbatoreRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/properties/$id': typeof PropertiesIdRoute
@@ -180,8 +245,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/collection'
     | '/contact'
+    | '/flats-for-sale-coimbatore'
+    | '/houses-for-sale-coimbatore'
+    | '/land-for-sale-coimbatore'
     | '/mcp'
+    | '/plots-for-sale-coimbatore'
+    | '/properties-for-rent-coimbatore'
+    | '/properties-for-sale-coimbatore'
     | '/sitemap.xml'
+    | '/villas-for-sale-coimbatore'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/properties/$id'
@@ -198,8 +270,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/collection'
     | '/contact'
+    | '/flats-for-sale-coimbatore'
+    | '/houses-for-sale-coimbatore'
+    | '/land-for-sale-coimbatore'
     | '/mcp'
+    | '/plots-for-sale-coimbatore'
+    | '/properties-for-rent-coimbatore'
+    | '/properties-for-sale-coimbatore'
     | '/sitemap.xml'
+    | '/villas-for-sale-coimbatore'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/properties/$id'
@@ -217,8 +296,15 @@ export interface FileRouteTypes {
     | '/auth'
     | '/collection'
     | '/contact'
+    | '/flats-for-sale-coimbatore'
+    | '/houses-for-sale-coimbatore'
+    | '/land-for-sale-coimbatore'
     | '/mcp'
+    | '/plots-for-sale-coimbatore'
+    | '/properties-for-rent-coimbatore'
+    | '/properties-for-sale-coimbatore'
     | '/sitemap.xml'
+    | '/villas-for-sale-coimbatore'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/properties/$id'
@@ -237,8 +323,15 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CollectionRoute: typeof CollectionRoute
   ContactRoute: typeof ContactRoute
+  FlatsForSaleCoimbatoreRoute: typeof FlatsForSaleCoimbatoreRoute
+  HousesForSaleCoimbatoreRoute: typeof HousesForSaleCoimbatoreRoute
+  LandForSaleCoimbatoreRoute: typeof LandForSaleCoimbatoreRoute
   McpRoute: typeof McpRoute
+  PlotsForSaleCoimbatoreRoute: typeof PlotsForSaleCoimbatoreRoute
+  PropertiesForRentCoimbatoreRoute: typeof PropertiesForRentCoimbatoreRoute
+  PropertiesForSaleCoimbatoreRoute: typeof PropertiesForSaleCoimbatoreRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VillasForSaleCoimbatoreRoute: typeof VillasForSaleCoimbatoreRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   PropertiesIdRoute: typeof PropertiesIdRoute
@@ -291,6 +384,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/flats-for-sale-coimbatore': {
+      id: '/flats-for-sale-coimbatore'
+      path: '/flats-for-sale-coimbatore'
+      fullPath: '/flats-for-sale-coimbatore'
+      preLoaderRoute: typeof FlatsForSaleCoimbatoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/houses-for-sale-coimbatore': {
+      id: '/houses-for-sale-coimbatore'
+      path: '/houses-for-sale-coimbatore'
+      fullPath: '/houses-for-sale-coimbatore'
+      preLoaderRoute: typeof HousesForSaleCoimbatoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/land-for-sale-coimbatore': {
+      id: '/land-for-sale-coimbatore'
+      path: '/land-for-sale-coimbatore'
+      fullPath: '/land-for-sale-coimbatore'
+      preLoaderRoute: typeof LandForSaleCoimbatoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mcp': {
       id: '/mcp'
       path: '/mcp'
@@ -298,11 +412,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plots-for-sale-coimbatore': {
+      id: '/plots-for-sale-coimbatore'
+      path: '/plots-for-sale-coimbatore'
+      fullPath: '/plots-for-sale-coimbatore'
+      preLoaderRoute: typeof PlotsForSaleCoimbatoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/properties-for-rent-coimbatore': {
+      id: '/properties-for-rent-coimbatore'
+      path: '/properties-for-rent-coimbatore'
+      fullPath: '/properties-for-rent-coimbatore'
+      preLoaderRoute: typeof PropertiesForRentCoimbatoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/properties-for-sale-coimbatore': {
+      id: '/properties-for-sale-coimbatore'
+      path: '/properties-for-sale-coimbatore'
+      fullPath: '/properties-for-sale-coimbatore'
+      preLoaderRoute: typeof PropertiesForSaleCoimbatoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/villas-for-sale-coimbatore': {
+      id: '/villas-for-sale-coimbatore'
+      path: '/villas-for-sale-coimbatore'
+      fullPath: '/villas-for-sale-coimbatore'
+      preLoaderRoute: typeof VillasForSaleCoimbatoreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -393,8 +535,15 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CollectionRoute: CollectionRoute,
   ContactRoute: ContactRoute,
+  FlatsForSaleCoimbatoreRoute: FlatsForSaleCoimbatoreRoute,
+  HousesForSaleCoimbatoreRoute: HousesForSaleCoimbatoreRoute,
+  LandForSaleCoimbatoreRoute: LandForSaleCoimbatoreRoute,
   McpRoute: McpRoute,
+  PlotsForSaleCoimbatoreRoute: PlotsForSaleCoimbatoreRoute,
+  PropertiesForRentCoimbatoreRoute: PropertiesForRentCoimbatoreRoute,
+  PropertiesForSaleCoimbatoreRoute: PropertiesForSaleCoimbatoreRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VillasForSaleCoimbatoreRoute: VillasForSaleCoimbatoreRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
