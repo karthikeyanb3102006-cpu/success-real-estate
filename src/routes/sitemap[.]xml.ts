@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
+import { CATEGORIES } from "@/lib/categories";
 import { listPropertiesFn } from "@/lib/properties.functions";
 
 const BASE_URL = "https://success-real-estate.lovable.app";
@@ -24,6 +25,11 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/properties", changefreq: "daily", priority: "0.9" },
+          ...CATEGORIES.filter((c) => !c.canonicalPath).map((c) => ({
+            path: c.path,
+            changefreq: "daily" as const,
+            priority: "0.9",
+          })),
           { path: "/collection", changefreq: "monthly", priority: "0.5" },
           { path: "/about", changefreq: "monthly", priority: "0.6" },
           { path: "/contact", changefreq: "monthly", priority: "0.7" },
