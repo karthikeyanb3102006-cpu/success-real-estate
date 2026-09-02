@@ -91,8 +91,8 @@ function PropertyDetail() {
       <div className="mt-6 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
         <div className="overflow-hidden rounded-xl frame-gold">
           <img
-            src={listing.images[active]}
-            alt={`${listing.title} photo ${active + 1}`}
+            src={listing.images[active]?.url}
+            alt={listing.images[active]?.alt || `${listing.title} photo ${active + 1}`}
             width={1200}
             height={800}
             className="aspect-[3/2] w-full object-cover"
