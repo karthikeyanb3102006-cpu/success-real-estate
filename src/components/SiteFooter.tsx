@@ -28,7 +28,7 @@ export function SiteFooter() {
           <p>concierge@successrealestate.com</p>
           <p className="mt-4">NSK Street, Selvapuram, Perur Main Road,</p>
           <p>Near GM Bakery, Coimbatore, Tamil Nadu</p>
-          <p className="mt-4">Mon–Sat, 8am – 9pm local time</p>
+          <p className="mt-4">Mon–Sat, 10am – 9pm local time</p>
         </div>
       </div>
       <div className="border-t border-border/60 py-5 text-center text-xs text-muted-foreground">
