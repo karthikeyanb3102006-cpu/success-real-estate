@@ -5,9 +5,18 @@ export const SITE_URL = "https://success-real-estate.lovable.app";
 
 export type CategoryFaq = { q: string; a: string };
 
+export type CategoryPath =
+  | "/properties-for-sale-coimbatore"
+  | "/properties-for-rent-coimbatore"
+  | "/houses-for-sale-coimbatore"
+  | "/flats-for-sale-coimbatore"
+  | "/villas-for-sale-coimbatore"
+  | "/plots-for-sale-coimbatore"
+  | "/land-for-sale-coimbatore";
+
 export type CategoryDef = {
   /** Route path, e.g. /properties-for-sale-coimbatore */
-  path: string;
+  path: CategoryPath;
   h1: string;
   eyebrow: string;
   title: string;
@@ -17,7 +26,7 @@ export type CategoryDef = {
   type?: Listing["type"];
   faqs: CategoryFaq[];
   /** When set, this page points its canonical at another category (near-duplicate intent). */
-  canonicalPath?: string;
+  canonicalPath?: CategoryPath;
 };
 
 const buyFaq: CategoryFaq[] = [
