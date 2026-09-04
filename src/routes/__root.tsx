@@ -88,6 +88,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Search, save and tour luxury homes for sale or rent with Success Real Estate.",
       },
       { name: "author", content: "Success Real Estate" },
+      {
+        name: "google-site-verification",
+        content: "lOr-DJsLEgwyeAZG2ZMH9dbRVhMA3__HFZ_UsOssdW4",
+      },
       { property: "og:title", content: "Success Real Estate — Your Dream • Our Priority" },
       {
         property: "og:description",
