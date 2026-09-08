@@ -4,18 +4,12 @@ import { useEffect, useState, type ReactNode } from "react";
 import crest from "@/assets/logo-crest.png";
 import { useSession } from "@/lib/auth";
 
-// These paths and prefixes are always public (crawlers and visitors can see them).
+// Only auth and machine-facing files stay public; every visitor must sign up
+// before viewing any page content.
 const PUBLIC_PREFIXES = ["/auth", "/sitemap.xml", "/mcp", "/.well-known", "/.lovable"];
 
-// These paths require an authenticated user.
-const PROTECTED_PATHS = ["/collection"];
-const PROTECTED_PREFIXES = ["/admin"];
-
 function isPublicPath(pathname: string) {
-  if (PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return true;
-  if (PROTECTED_PATHS.some((p) => pathname === p)) return false;
-  if (PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return false;
-  return true;
+  return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
 export function AuthGate({ children }: { children: ReactNode }) {
