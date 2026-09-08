@@ -3,7 +3,20 @@ import { cn } from "@/lib/utils";
 const WHATSAPP_NUMBER = "918807739441";
 
 function whatsappUrl(message: string) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+}
+
+// Preview panes block plain target="_blank" navigations, so open at the top level.
+function openWhatsApp(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+  e.preventDefault();
+  const opened = window.open(href, "_blank", "noopener,noreferrer");
+  if (!opened) {
+    try {
+      window.top!.location.href = href;
+    } catch {
+      window.location.href = href;
+    }
+  }
 }
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -38,6 +51,7 @@ export function WhatsAppButton({
         href={whatsappUrl(message)}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={(e) => openWhatsApp(e, whatsappUrl(message))}
         aria-label="Chat with Success Real Estate on WhatsApp"
         className={cn(
           "fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full border border-gold bg-gold px-4 py-3 text-sm font-semibold text-black shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-background",
@@ -55,6 +69,7 @@ export function WhatsAppButton({
       href={whatsappUrl(message)}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={(e) => openWhatsApp(e, whatsappUrl(message))}
       className={cn(
         "inline-flex items-center gap-2 rounded-lg border border-gold/60 px-4 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-accent",
         className
