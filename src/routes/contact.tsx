@@ -3,6 +3,8 @@ import { Bell, Mail, MessageSquare, Phone } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
@@ -109,6 +111,14 @@ function ContactPage() {
               <p className="inline-flex items-center gap-3"><Phone className="h-4 w-4 text-gold" /> +91 88077 39441</p>
               <p className="inline-flex items-center gap-3"><Mail className="h-4 w-4 text-gold" /> concierge@successrealestate.com</p>
               <p className="inline-flex items-center gap-3"><MessageSquare className="h-4 w-4 text-gold" /> Live chat, 8am–9pm daily</p>
+            </div>
+            <div className="mt-5">
+              <WhatsAppButton
+                variant="inline"
+                message="Hi Success Real Estate, I'm interested in house details. Please share more information."
+                label="Chat on WhatsApp"
+                className="w-full justify-center"
+              />
             </div>
           </div>
 

@@ -7,6 +7,7 @@ import { formatPrice } from "@/data/properties";
 import { useFavorites } from "@/lib/favorites";
 import { propertyQuery } from "@/lib/properties.queries";
 import { cn } from "@/lib/utils";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
@@ -308,6 +309,12 @@ function InquiryPanel({ title }: { title: string }) {
       >
         Schedule a Private Tour
       </button>
+      <WhatsAppButton
+        variant="inline"
+        message={`Hi Success Real Estate, I'm interested in ${title}. Please share more details.`}
+        label="Ask on WhatsApp"
+        className="w-full justify-center"
+      />
     </form>
   );
 }
