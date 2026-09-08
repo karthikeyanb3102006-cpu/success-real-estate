@@ -14,22 +14,16 @@ function isPublicPath(pathname: string) {
 
 export function AuthGate({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
-  const [guest, setGuest] = useState(false);
   const { user, loading } = useSession();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
     setMounted(true);
-    try {
-      setGuest(sessionStorage.getItem("sre-guest") === "1");
-    } catch {
-      /* ignore */
-    }
   }, []);
 
   const publicPath = isPublicPath(pathname);
 
-  if (!mounted || loading || publicPath || user || guest) return <>{children}</>;
+  if (!mounted || loading || publicPath || user) return <>{children}</>;
 
   const next = pathname === "/" ? undefined : pathname;
 
@@ -49,22 +43,8 @@ export function AuthGate({ children }: { children: ReactNode }) {
           search={next ? { next } : {}}
           className="inline-flex h-12 items-center justify-center rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90"
         >
-          Sign in / Sign up
+          Sign up to continue
         </Link>
-        <button
-          type="button"
-          onClick={() => {
-            try {
-              sessionStorage.setItem("sre-guest", "1");
-            } catch {
-              /* ignore */
-            }
-            setGuest(true);
-          }}
-          className="inline-flex h-12 items-center justify-center rounded-lg border border-gold/60 text-sm text-gold transition-colors hover:bg-accent"
-        >
-          Browse as guest
-        </button>
       </div>
     </div>
   );
