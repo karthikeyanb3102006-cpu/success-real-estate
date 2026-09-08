@@ -7,6 +7,7 @@ import { formatPrice } from "@/data/properties";
 import { useFavorites } from "@/lib/favorites";
 import { propertyQuery } from "@/lib/properties.queries";
 import { cn } from "@/lib/utils";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const PropertyMap = lazy(() => import("@/components/PropertyMap"));
 
