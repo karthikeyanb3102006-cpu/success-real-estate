@@ -3,7 +3,20 @@ import { cn } from "@/lib/utils";
 const WHATSAPP_NUMBER = "918807739441";
 
 function whatsappUrl(message: string) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+}
+
+// Preview panes block plain target="_blank" navigations, so open at the top level.
+function openWhatsApp(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+  e.preventDefault();
+  const opened = window.open(href, "_blank", "noopener,noreferrer");
+  if (!opened) {
+    try {
+      window.top!.location.href = href;
+    } catch {
+      window.location.href = href;
+    }
+  }
 }
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
