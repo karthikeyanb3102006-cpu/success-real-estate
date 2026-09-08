@@ -309,6 +309,12 @@ function InquiryPanel({ title }: { title: string }) {
       >
         Schedule a Private Tour
       </button>
+      <WhatsAppButton
+        variant="inline"
+        message={`Hi Success Real Estate, I'm interested in ${title}. Please share more details.`}
+        label="Ask on WhatsApp"
+        className="w-full justify-center"
+      />
     </form>
   );
 }
