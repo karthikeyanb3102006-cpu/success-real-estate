@@ -69,6 +69,7 @@ export function WhatsAppButton({
       href={whatsappUrl(message)}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={(e) => openWhatsApp(e, whatsappUrl(message))}
       className={cn(
         "inline-flex items-center gap-2 rounded-lg border border-gold/60 px-4 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-accent",
         className
