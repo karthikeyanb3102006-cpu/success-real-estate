@@ -4,11 +4,22 @@ import { useEffect, useState, type ReactNode } from "react";
 import crest from "@/assets/logo-crest.png";
 import { useSession } from "@/lib/auth";
 
-// Only auth and machine-facing files stay public; every visitor must sign up
-// before viewing any page content.
-const PUBLIC_PREFIXES = ["/auth", "/sitemap.xml", "/mcp", "/.well-known", "/.lovable"];
+// Marketing and listing content stays public so search engines can crawl it.
+// Sign-up is only required for the saved collection and the admin area.
+const PUBLIC_PREFIXES = [
+  "/auth",
+  "/sitemap.xml",
+  "/mcp",
+  "/.well-known",
+  "/.lovable",
+  "/properties",
+  "/about",
+  "/contact",
+];
 
 function isPublicPath(pathname: string) {
+  if (pathname === "/") return true;
+  if (pathname.endsWith("-coimbatore")) return true;
   return PUBLIC_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
