@@ -41,6 +41,13 @@ function AdminList() {
           <p className="eyebrow">Admin</p>
           <h1 className="mt-3 font-display text-4xl">Manage listings</h1>
         </div>
+        <div className="flex flex-wrap gap-3">
+        <Link
+          to="/admin/leads"
+          className="inline-flex h-12 items-center gap-2 rounded-lg border border-gold/60 px-6 text-sm font-semibold uppercase tracking-[0.18em] text-gold hover:bg-accent"
+        >
+          Enquiry inbox
+        </Link>
         <Link
           to="/admin/new"
           className="inline-flex h-12 items-center gap-2 rounded-lg bg-primary px-6 text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground"

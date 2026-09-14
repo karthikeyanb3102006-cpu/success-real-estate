@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { submitLeadFn } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -67,6 +68,7 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [alerts, setAlerts] = useState({ newListings: true, priceDrops: true, savedSearch: false });
+  const [sending, setSending] = useState(false);
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-16">
@@ -75,18 +77,38 @@ function ContactPage() {
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            toast.success("Message sent — an advisor will reply within the hour.");
+            const form = e.currentTarget;
+            const data = new FormData(form);
+            setSending(true);
+            try {
+              await submitLeadFn({
+                data: {
+                  source: "contact_form",
+                  name: String(data.get("name") ?? ""),
+                  contact: String(data.get("contact") ?? ""),
+                  intent: String(data.get("intent") ?? ""),
+                  message: String(data.get("message") ?? ""),
+                  page_path: "/contact",
+                },
+              });
+              form.reset();
+              toast.success("Message sent — an advisor will reply within the hour.");
+            } catch {
+              toast.error("We couldn't send that. Please try WhatsApp or call us.");
+            } finally {
+              setSending(false);
+            }
           }}
           className="space-y-4 rounded-xl border border-gold/45 bg-card p-6 sm:p-8"
         >
           <h2 className="font-display text-2xl">Send an inquiry</h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <input required aria-label="Full name" placeholder="Full name" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
-            <input required aria-label="Email or phone" placeholder="Email or phone" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+            <input required name="name" aria-label="Full name" placeholder="Full name" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+            <input required name="contact" aria-label="Email or phone" placeholder="Email or phone" className="h-12 rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
           </div>
-          <select aria-label="What can we help you with?" className="h-12 w-full rounded-lg border border-border bg-background px-4 text-foreground outline-none focus:border-gold">
+          <select name="intent" aria-label="What can we help you with?" className="h-12 w-full rounded-lg border border-border bg-background px-4 text-foreground outline-none focus:border-gold">
             <option>I'm looking to buy</option>
             <option>I'm looking to rent</option>
             <option>I'd like to sell</option>
@@ -94,13 +116,17 @@ function ContactPage() {
           </select>
           <textarea
             rows={5}
+            name="message"
             aria-label="Your message"
             placeholder="Tell us what you're looking for…"
             className="w-full rounded-lg border border-border bg-background p-4 text-sm outline-none focus:border-gold"
           />
 
-          <button className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90">
-            Send message
+          <button
+            disabled={sending}
+            className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+          >
+            {sending ? "Sending…" : "Send message"}
           </button>
         </form>
 

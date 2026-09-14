@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 import { formatPrice } from "@/data/properties";
 import { useFavorites } from "@/lib/favorites";
+import { submitLeadFn } from "@/lib/leads.functions";
 import { propertyQuery } from "@/lib/properties.queries";
 import { cn } from "@/lib/utils";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -275,13 +276,33 @@ function Field({
 
 function InquiryPanel({ title }: { title: string }) {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        setSent(true);
-        toast.success("Request received — an advisor will reply within the hour.");
+        const form = e.currentTarget;
+        const data = new FormData(form);
+        setSending(true);
+        try {
+          await submitLeadFn({
+            data: {
+              source: "property_inquiry",
+              name: String(data.get("name") ?? ""),
+              contact: String(data.get("contact") ?? ""),
+              message: String(data.get("message") ?? ""),
+              property_title: title,
+              page_path: typeof window !== "undefined" ? window.location.pathname : "",
+            },
+          });
+          setSent(true);
+          toast.success("Request received — an advisor will reply within the hour.");
+        } catch {
+          toast.error("We couldn't send that. Please try WhatsApp or call us.");
+        } finally {
+          setSending(false);
+        }
       }}
       className="space-y-3 rounded-xl border border-gold/50 bg-card p-6"
     >
@@ -290,21 +311,35 @@ function InquiryPanel({ title }: { title: string }) {
       <p className="text-sm text-muted-foreground">
         No sign-up required. Ask about {title} and we'll respond personally.
       </p>
-      <input required aria-label="Your name" placeholder="Your name" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
-      <input required type="email" aria-label="Email or phone" placeholder="Email or phone" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+      <input required name="name" aria-label="Your name" placeholder="Your name" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
+      <input required name="contact" type="email" aria-label="Email or phone" placeholder="Email or phone" className="h-12 w-full rounded-lg border border-border bg-background px-4 outline-none focus:border-gold" />
       <textarea
         rows={3}
+        name="message"
         aria-label="Your message"
         defaultValue={`I'd like to know more about ${title}.`}
         className="w-full rounded-lg border border-border bg-background p-4 text-sm outline-none focus:border-gold"
       />
 
-      <button className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90">
-        {sent ? "Request sent" : "Send inquiry"}
+      <button
+        disabled={sending}
+        className="h-12 w-full rounded-lg bg-primary text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+      >
+        {sending ? "Sending…" : sent ? "Request sent" : "Send inquiry"}
       </button>
       <button
         type="button"
-        onClick={() => toast.success("Private tour requested — we'll confirm a time shortly.")}
+        onClick={() => {
+          void submitLeadFn({
+            data: {
+              source: "tour_request",
+              property_title: title,
+              message: `Private tour requested for ${title}.`,
+              page_path: typeof window !== "undefined" ? window.location.pathname : "",
+            },
+          }).catch(() => undefined);
+          toast.success("Private tour requested — we'll confirm a time shortly.");
+        }}
         className="h-12 w-full rounded-lg border border-gold/60 text-sm text-gold transition-colors hover:bg-accent"
       >
         Schedule a Private Tour
@@ -313,6 +348,7 @@ function InquiryPanel({ title }: { title: string }) {
         variant="inline"
         message={`Hi Success Real Estate, I'm interested in ${title}. Please share more details.`}
         label="Ask on WhatsApp"
+        propertyTitle={title}
         className="w-full justify-center"
       />
     </form>
