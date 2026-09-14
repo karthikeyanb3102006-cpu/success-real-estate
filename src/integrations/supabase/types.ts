@@ -71,6 +71,51 @@ export type Database = {
         }
         Relationships: []
       }
+      leads: {
+        Row: {
+          contact: string | null
+          created_at: string
+          id: string
+          intent: string | null
+          message: string | null
+          name: string | null
+          page_path: string | null
+          property_slug: string | null
+          property_title: string | null
+          source: string
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          contact?: string | null
+          created_at?: string
+          id?: string
+          intent?: string | null
+          message?: string | null
+          name?: string | null
+          page_path?: string | null
+          property_slug?: string | null
+          property_title?: string | null
+          source: string
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          contact?: string | null
+          created_at?: string
+          id?: string
+          intent?: string | null
+          message?: string | null
+          name?: string | null
+          page_path?: string | null
+          property_slug?: string | null
+          property_title?: string | null
+          source?: string
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       locations: {
         Row: {
           created_at: string
