@@ -1,3 +1,4 @@
+import { submitLeadFn } from "@/lib/leads.functions";
 import { cn } from "@/lib/utils";
 
 const WHATSAPP_NUMBER = "918807739441";
@@ -35,6 +36,8 @@ type WhatsAppButtonProps = {
   message?: string;
   label?: string;
   className?: string;
+  propertyTitle?: string;
+  propertySlug?: string;
 };
 
 export function WhatsAppButton({
@@ -42,8 +45,24 @@ export function WhatsAppButton({
   message = "Hi Success Real Estate, I'm interested in house details. Please share more information.",
   label,
   className,
+  propertyTitle,
+  propertySlug,
 }: WhatsAppButtonProps) {
   const text = label || (variant === "floating" ? "Chat on WhatsApp" : "WhatsApp us");
+
+  // Record the lead so a WhatsApp tap is never lost, then open WhatsApp.
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    void submitLeadFn({
+      data: {
+        source: "whatsapp",
+        message,
+        ...(propertyTitle ? { property_title: propertyTitle } : {}),
+        ...(propertySlug ? { property_slug: propertySlug } : {}),
+        ...(typeof window !== "undefined" ? { page_path: window.location.pathname } : {}),
+      },
+    }).catch(() => undefined);
+    openWhatsApp(e, href);
+  };
 
   if (variant === "floating") {
     return (
