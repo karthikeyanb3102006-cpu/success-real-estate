@@ -70,7 +70,7 @@ export function WhatsAppButton({
         href={whatsappUrl(message)}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={(e) => openWhatsApp(e, whatsappUrl(message))}
+        onClick={(e) => handleClick(e, whatsappUrl(message))}
         aria-label="Chat with Success Real Estate on WhatsApp"
         className={cn(
           "fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full border border-gold bg-gold px-4 py-3 text-sm font-semibold text-black shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-background",
@@ -88,7 +88,7 @@ export function WhatsAppButton({
       href={whatsappUrl(message)}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={(e) => openWhatsApp(e, whatsappUrl(message))}
+      onClick={(e) => handleClick(e, whatsappUrl(message))}
       className={cn(
         "inline-flex items-center gap-2 rounded-lg border border-gold/60 px-4 py-2.5 text-sm font-medium text-gold transition-colors hover:bg-accent",
         className
