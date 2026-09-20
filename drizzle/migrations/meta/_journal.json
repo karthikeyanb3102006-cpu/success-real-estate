@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789878112494,
+      "tag": "0000_lead_pipeline_fields_and_notes",
+      "breakpoints": true
+    }
+  ]
+}

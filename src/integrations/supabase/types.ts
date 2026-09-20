@@ -71,10 +71,44 @@ export type Database = {
         }
         Relationships: []
       }
+      lead_notes: {
+        Row: {
+          author_id: string | null
+          body: string
+          created_at: string
+          id: string
+          lead_id: string
+        }
+        Insert: {
+          author_id?: string | null
+          body: string
+          created_at?: string
+          id?: string
+          lead_id: string
+        }
+        Update: {
+          author_id?: string | null
+          body?: string
+          created_at?: string
+          id?: string
+          lead_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_notes_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leads: {
         Row: {
+          assigned_to: string | null
           contact: string | null
           created_at: string
+          follow_up_on: string | null
           id: string
           intent: string | null
           message: string | null
@@ -84,11 +118,14 @@ export type Database = {
           property_title: string | null
           source: string
           status: string
+          updated_at: string
           user_id: string | null
         }
         Insert: {
+          assigned_to?: string | null
           contact?: string | null
           created_at?: string
+          follow_up_on?: string | null
           id?: string
           intent?: string | null
           message?: string | null
@@ -98,11 +135,14 @@ export type Database = {
           property_title?: string | null
           source: string
           status?: string
+          updated_at?: string
           user_id?: string | null
         }
         Update: {
+          assigned_to?: string | null
           contact?: string | null
           created_at?: string
+          follow_up_on?: string | null
           id?: string
           intent?: string | null
           message?: string | null
@@ -112,6 +152,7 @@ export type Database = {
           property_title?: string | null
           source?: string
           status?: string
+          updated_at?: string
           user_id?: string | null
         }
         Relationships: []
