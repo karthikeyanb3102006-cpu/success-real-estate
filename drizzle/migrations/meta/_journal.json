@@ -8,6 +8,13 @@
       "when": 1789878112494,
       "tag": "0000_lead_pipeline_fields_and_notes",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792482090224,
+      "tag": "0001_scope_property_image_reads",
+      "breakpoints": true
     }
   ]
 }
