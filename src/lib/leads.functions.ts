@@ -44,9 +44,6 @@ export const submitLeadFn = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message);
 
-    const { notifyNewLead } = await import("./lead-email.server");
-    await notifyNewLead({ ...data, id: inserted?.id ?? null });
-
     return { ok: true };
   });
 
@@ -78,7 +75,7 @@ export const adminListAgentsFn = createServerFn({ method: "GET" })
       .select("user_id")
       .eq("role", "admin");
     if (rolesError) throw new Error(rolesError.message);
-    const ids = [...new Set((roles ?? []).map((r: { user_id: string }) => r.user_id))];
+    const ids = [...new Set<string>((roles ?? []).map((r: { user_id: string }) => r.user_id))];
     if (ids.length === 0) return [];
     const { data: profiles } = await supabase
       .from("profiles")
@@ -110,9 +107,9 @@ export const adminUpdateLeadFn = createServerFn({ method: "POST" })
   .handler(async ({ data, context }): Promise<{ ok: true }> => {
     const supabase = await admin(context);
     const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
-    if (data.status !== undefined) patch.status = data.status;
-    if (data.assigned_to !== undefined) patch.assigned_to = data.assigned_to;
-    if (data.follow_up_on !== undefined) patch.follow_up_on = data.follow_up_on;
+    if (data.status !== undefined) patch["status"] = data.status;
+    if (data.assigned_to !== undefined) patch["assigned_to"] = data.assigned_to;
+    if (data.follow_up_on !== undefined) patch["follow_up_on"] = data.follow_up_on;
     const { error } = await supabase.from("leads").update(patch).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -191,5 +188,11 @@ export const draftLeadReplyFn = createServerFn({ method: "POST" })
   .handler(async ({ data, context }): Promise<{ reply: string }> => {
     await admin(context);
     const { draftReply } = await import("./ai-reply.server");
-    return { reply: await draftReply(data) };
+    return {
+      reply: await draftReply({
+        ...data,
+        propertyDetails: data.propertyDetails ?? "",
+        buyerName: data.buyerName ?? "",
+      }),
+    };
   });
