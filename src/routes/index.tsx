@@ -3,6 +3,7 @@ import { Building2, Key, Search, ShieldCheck, Star, Tag } from "lucide-react";
 
 import hero from "@/assets/hero-estate.jpg";
 import crest from "@/assets/logo-crest.png";
+import { SITE_URL } from "@/lib/categories";
 import { PropertyCard } from "@/components/PropertyCard";
 import { testimonials } from "@/data/properties";
 import { propertiesQuery } from "@/lib/properties.queries";

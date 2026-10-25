@@ -25,8 +25,6 @@ export type CategoryDef = {
   deal?: Listing["deal"];
   type?: Listing["type"];
   faqs: CategoryFaq[];
-  /** When set, this page points its canonical at another category (near-duplicate intent). */
-  canonicalPath?: CategoryPath;
 };
 
 const buyFaq: CategoryFaq[] = [
@@ -153,7 +151,6 @@ export const CATEGORIES: CategoryDef[] = [
       "Land parcels and residential plots available in and around Coimbatore. Sizes, localities and approval details are listed for each parcel.",
     deal: "buy",
     type: "plot",
-    canonicalPath: "/plots-for-sale-coimbatore",
     faqs: [
       {
         q: "Can you help verify land documents?",
@@ -175,7 +172,7 @@ export function filterByCategory(listings: Listing[], def: CategoryDef) {
 }
 
 export function categoryHead(def: CategoryDef) {
-  const url = `${SITE_URL}${def.canonicalPath ?? def.path}`;
+  const url = `${SITE_URL}${def.path}`;
   return {
     meta: [
       { title: def.title },
