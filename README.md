@@ -110,6 +110,8 @@ Continue developing this project in the [Lovable editor](https://lovable.dev/pro
 
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
+Before running the app, copy `.env.example` to `.env` and fill in the values for your project.
+
 ```sh
 git clone <this-repository-url>
 cd <repository-name>
