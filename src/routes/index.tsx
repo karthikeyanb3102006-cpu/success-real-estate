@@ -13,19 +13,26 @@ export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(propertiesQuery),
   head: () => ({
     meta: [
-      { title: "Success Real Estate — Luxury Homes to Buy & Rent" },
+      {
+        title: "Buy & Rent Luxury Homes in Coimbatore — Success Real Estate",
+      },
       {
         name: "description",
         content:
-          "Search, save and tour premium homes for sale or rent with Success Real Estate. Your Dream • Our Priority.",
+          "Buy or rent premium homes in Coimbatore with Success Real Estate. Curated houses, flats, villas and plots, private tours and advisors who answer. Your Dream • Our Priority.",
       },
-      { property: "og:title", content: "Success Real Estate — Luxury Homes to Buy & Rent" },
+      {
+        property: "og:title",
+        content: "Buy & Rent Luxury Homes in Coimbatore — Success Real Estate",
+      },
       {
         property: "og:description",
         content:
-          "A five-star property concierge: curated listings, private tours and advisors who answer.",
+          "A five-star property concierge for Coimbatore: curated listings, private tours and advisors who answer.",
       },
+      { property: "og:url", content: `${SITE_URL}/` },
     ],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
   }),
   component: Index,
 });
